@@ -56,9 +56,8 @@ func NewError(code int, message string) apiError {
 	err := apiError{
 		Code:    code,
 		Message: message,
-		errno:   errNo,
+		errno:   atomic.AddUint64(&errNo, 1),
 	}
-	atomic.AddUint64(&errNo, 1)
 	return err
 }
 
